@@ -8,3 +8,7 @@
     <img src="https://img.shields.io/badge/Mongoose-black?style=for-the-badge&logo=Mongoose&logoColor=white"/>
         <img src="https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white"/>
     </div>
+    
+    
+## Database Design
+![Screenshot_20230212_005834](https://user-images.githubusercontent.com/34510364/218287532-188e3c9e-8c5f-4450-99ed-48505c5620fa.png)
