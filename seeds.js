@@ -122,6 +122,8 @@ const seedRatings = async () => {
   const allUsers = await User.find();
 
   for (const movie of allMovies) {
+    let totalScore = 0;
+    let numberOfRatings = 0;
     for (const user of allUsers) {
       const rating = Math.floor(Math.random() * 5) + 1;
       const newRating = new Rating({
@@ -129,8 +131,12 @@ const seedRatings = async () => {
         userId: user._id,
         score: rating,
       });
+      totalScore += rating;
+      numberOfRatings++;
       await newRating.save();
     }
+    movie.averageRating = totalScore / numberOfRatings;
+    await movie.save();
   }
 };
 
