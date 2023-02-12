@@ -12,6 +12,7 @@ const mongoDB = `mongodb+srv://iniffur:${password}@cluster0.crtcyqm.mongodb.net/
 main().catch((err) => console.log(err));
 async function main() {
   await mongoose.connect(mongoDB);
+  console.log("Connected");
 }
 const port = 3000;
 

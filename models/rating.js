@@ -13,6 +13,8 @@ const RatingSchema = new Schema({
     required: true,
     get: (v) => Math.round(v),
     set: (v) => Math.round(v),
+    min: 1,
+    max: 5,
   },
 });
 

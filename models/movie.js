@@ -15,8 +15,7 @@ const MovieSchema = new Schema({
     get: (v) => Math.round(v),
     set: (v) => Math.round(v),
   },
-  genre: { type: String, required: true },
-  /// genre(s)?
+  genres: [{ type: String, required: true }],
   averageRating: { type: Number, required: false },
 });
 
