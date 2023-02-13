@@ -2,26 +2,25 @@ const Movie = require("../models/movie");
 
 exports.getMovies = async (req, res) => {
   let movies = await Movie.find();
+  const { title, yearOfRelease, genres } = req.query;
 
-  if (req.query.title) {
+  if (title) {
     movies = movies.filter((movie) =>
-      movie.title.toLowerCase().includes(req.query.title.toLowerCase())
+      movie.title.toLowerCase().includes(title.toLowerCase())
     );
   }
-  if (req.query.yearOfRelease) {
-    movies = movies.filter(
-      (movie) => movie.yearOfRelease == req.query.yearOfRelease
-    );
+  if (yearOfRelease) {
+    movies = movies.filter((movie) => movie.yearOfRelease == yearOfRelease);
   }
-  if (req.query.genres) {
+  if (genres) {
     movies = movies.filter((movie) =>
       movie.genres
         .map((genre) => genre.toLowerCase())
-        .includes(req.query.genres.toLowerCase())
+        .includes(genres.toLowerCase())
     );
   }
 
-  if (!req.query.title && !req.query.yearOfRelease && !req.query.genres) {
+  if (!title && !yearOfRelease && !genres) {
     return res.status(400).send({ error: "Invalid or no criteria given" });
   } else if (movies.length === 0) {
     return res.status(404).send({ error: "Movie not found" });
