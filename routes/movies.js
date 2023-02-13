@@ -6,5 +6,6 @@ const topFiveByIdController = require("../controllers/topFiveMoviesById");
 
 router.get("/", movieController.getMovies);
 router.get("/top5", topFiveController.getTopFiveMovies);
+router.get("/top5/:userId", topFiveByIdController.getTopFiveMoviesByUser);
 
 module.exports = router;
