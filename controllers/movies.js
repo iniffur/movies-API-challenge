@@ -1,4 +1,5 @@
 const Movie = require("../models/movie");
+const roundAverageRating = require("../services.js/movieService");
 
 exports.getMovies = async (req, res) => {
   let movies = await Movie.find();
@@ -20,6 +21,7 @@ exports.getMovies = async (req, res) => {
     );
   }
 
+  roundAverageRating(movies);
   if (!title && !yearOfRelease && !genres) {
     return res.status(400).send({ error: "Invalid or no criteria given" });
   } else if (movies.length === 0) {

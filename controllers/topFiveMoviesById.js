@@ -1,6 +1,7 @@
 const Movie = require("../models/movie");
 const Rating = require("../models/rating");
 const User = require("../models/user");
+const roundAverageRating = require("../services.js/movieService");
 
 const getSortedMovies = (movies, userRatings) => {
   const getRating = (movie) =>
@@ -36,6 +37,7 @@ exports.getTopFiveMoviesByUser = async (req, res) => {
   const movieIds = userRatings.map((rating) => rating.movieId);
   const movies = await Movie.find({ _id: { $in: movieIds } });
   const sortedMovies = getSortedMovies(movies, userRatings);
+  roundAverageRating(sortedMovies);
 
   if (sortedMovies.length === 0) {
     return res.status(404).send({ error: "Movies not found" });
