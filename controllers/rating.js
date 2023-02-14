@@ -12,6 +12,17 @@ const createRating = async (userId, movieId, score) => {
   await newRating.save();
 };
 
+const updateAverageRating = async (movie, movieId) => {
+  let ratings = await Rating.find({ movieId: movieId });
+
+  let totalScore = 0;
+  ratings.forEach((rating) => {
+    totalScore += rating.score;
+  });
+  movie.averageRating = totalScore / ratings.length;
+  await movie.save();
+};
+
 exports.addRating = async (req, res) => {
   try {
     const { userId, movieId, score } = req.query;
@@ -32,6 +43,8 @@ exports.addRating = async (req, res) => {
     } else {
       await createRating(userId, movieId, score);
     }
+
+    updateAverageRating(movie, movieId);
 
     return res.status(200).send("New rating accepted!");
   } catch (error) {
