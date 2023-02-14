@@ -1,21 +1,10 @@
-const dotenv = require("dotenv");
-
 const mongoose = require("mongoose");
 const User = require("./models/user");
 const Movie = require("./models/movie");
 const Rating = require("./models/rating");
+const connectToDatabase = require("./databaseConnection");
 
-dotenv.config();
-
-mongoose.set("strictQuery", false);
-const password = encodeURIComponent(process.env.MONGOOSE_PASSWORD);
-const mongoDB = `mongodb+srv://iniffur:${password}@cluster0.crtcyqm.mongodb.net/movies_database?retryWrites=true&w=majority`;
-
-main().catch((err) => console.log(err));
-async function main() {
-  await mongoose.connect(mongoDB);
-  console.log("Connected");
-}
+connectToDatabase();
 
 const users = [
   { username: "steven_gerrard" },
