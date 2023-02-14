@@ -1,5 +1,6 @@
 const Movie = require("../models/movie");
 const Rating = require("../models/rating");
+const User = require("../models/user");
 
 const getSortedMovies = (movies, userRatings) => {
   const getRating = (movie) =>
@@ -19,6 +20,16 @@ const getSortedMovies = (movies, userRatings) => {
 };
 
 exports.getTopFiveMoviesByUser = async (req, res) => {
+  if (Object.keys(req.query).length > 0) {
+    return res.status(400).send({ error: "Invalid query" });
+  }
+
+  const user = await User.findOne({ _id: req.params.userId });
+
+  if (!user) {
+    return res.status(404).send({ error: "User not found" });
+  }
+
   const userRatings = await Rating.find({ userId: req.params.userId }).sort({
     score: -1,
   });

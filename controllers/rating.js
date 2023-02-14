@@ -18,8 +18,12 @@ exports.addRating = async (req, res) => {
     const user = await User.findOne({ _id: userId });
     const movie = await Movie.findOne({ _id: movieId });
 
-    if (!movie || !user) {
-      return res.status(404).send({ error: "User or Movie not found" });
+    if (!user) {
+      return res.status(404).send({ error: "User not found" });
+    } else if (!movie) {
+      return res.status(404).send({ error: "Movie not found" });
+    } else if (!score) {
+      return res.status(400).send({ error: "No rating given" });
     }
 
     const existingRating = await Rating.findOne({ userId, movieId });
