@@ -2,6 +2,7 @@ const dotenv = require("dotenv");
 const express = require("express");
 const app = express();
 const movieRoutes = require("./routes/movies");
+const ratingRoutes = require("./routes/ratings");
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ async function main() {
 const port = 3000;
 
 app.use("/movies", movieRoutes);
+app.use("/ratings", ratingRoutes);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}!`);
