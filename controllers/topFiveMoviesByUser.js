@@ -1,11 +1,12 @@
 const Rating = require("../models/rating");
 const User = require("../models/user");
+const topFiveMovies = require("../controllers/topFiveMovies");
 const topFiveMoviesByUserService = require("../services/topFiveMoviesByUserService");
 
 const getTopFiveMoviesByUser = async (req, res) => {
   try {
-    if (Object.keys(req.query).length > 0) {
-      return res.status(400).send({ error: "Invalid query" });
+    if (topFiveMovies.handleInvalidQuery(req, res)) {
+      return;
     }
 
     const user = await User.findOne({ _id: req.params.userId });
@@ -18,11 +19,7 @@ const getTopFiveMoviesByUser = async (req, res) => {
     });
     const movies = await topFiveMoviesByUserService.sortMovies(userRatings);
 
-    if (movies.length === 0) {
-      return res.status(404).send({ error: "Movies not found" });
-    } else {
-      return res.status(200).send(movies);
-    }
+    return topFiveMovies.handleMoviesResponse(res, movies);
   } catch (error) {
     res.status(400).send({ error: error.message });
   }

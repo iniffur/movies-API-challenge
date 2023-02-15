@@ -1,12 +1,12 @@
 const topFiveMoviesService = require("../services/topFiveMoviesService");
 
-const getTopFiveMovies = async (req, res) => {
+const handleInvalidQuery = (req, res) => {
   if (Object.keys(req.query).length > 0) {
     return res.status(400).send({ error: "Invalid query" });
   }
+};
 
-  const movies = await topFiveMoviesService.getFilteredTopFive();
-
+const handleMoviesResponse = (res, movies) => {
   if (movies.length === 0) {
     return res.status(404).send({ error: "Movies not found" });
   } else {
@@ -14,4 +14,12 @@ const getTopFiveMovies = async (req, res) => {
   }
 };
 
-module.exports = { getTopFiveMovies };
+const getTopFiveMovies = async (req, res) => {
+  if (handleInvalidQuery(req, res)) {
+    return;
+  }
+  const movies = await topFiveMoviesService.getFilteredTopFive();
+  return handleMoviesResponse(res, movies);
+};
+
+module.exports = { handleInvalidQuery, handleMoviesResponse, getTopFiveMovies };
