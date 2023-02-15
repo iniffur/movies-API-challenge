@@ -1,29 +1,8 @@
 const Movie = require("../models/movie");
-const Rating = require("../models/rating");
 const User = require("../models/user");
+const ratingService = require("../services/ratingService");
 
-const updateRating = async (rating, score) => {
-  rating.score = score;
-  await rating.save();
-};
-
-const createRating = async (userId, movieId, score) => {
-  const newRating = new Rating({ userId, movieId, score });
-  await newRating.save();
-};
-
-const updateAverageRating = async (movie, movieId) => {
-  let ratings = await Rating.find({ movieId: movieId });
-
-  let totalScore = 0;
-  ratings.forEach((rating) => {
-    totalScore += rating.score;
-  });
-  movie.averageRating = totalScore / ratings.length;
-  await movie.save();
-};
-
-exports.addRating = async (req, res) => {
+const addRating = async (req, res) => {
   try {
     const { userId, movieId, score } = req.query;
     const user = await User.findOne({ _id: userId });
@@ -37,17 +16,12 @@ exports.addRating = async (req, res) => {
       return res.status(400).send({ error: "No rating given" });
     }
 
-    const existingRating = await Rating.findOne({ userId, movieId });
-    if (existingRating) {
-      await updateRating(existingRating, score);
-    } else {
-      await createRating(userId, movieId, score);
-    }
-
-    updateAverageRating(movie, movieId);
+    ratingService.handleRatings(movie, userId, movieId, score);
 
     return res.status(200).send("New rating accepted!");
   } catch (error) {
     res.status(400).send({ error: "Invalid rating inputted" });
   }
 };
+
+module.exports = { addRating };

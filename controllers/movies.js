@@ -1,27 +1,14 @@
-const Movie = require("../models/movie");
-const roundAverageRating = require("../services.js/movieService");
+const movieService = require("../services/movieService");
 
-exports.getMovies = async (req, res) => {
-  let movies = await Movie.find();
+const getMovies = async (req, res) => {
   const { title, yearOfRelease, genres } = req.query;
 
-  if (title) {
-    movies = movies.filter((movie) =>
-      movie.title.toLowerCase().includes(title.toLowerCase())
-    );
-  }
-  if (yearOfRelease) {
-    movies = movies.filter((movie) => movie.yearOfRelease == yearOfRelease);
-  }
-  if (genres) {
-    movies = movies.filter((movie) =>
-      movie.genres
-        .map((genre) => genre.toLowerCase())
-        .includes(genres.toLowerCase())
-    );
-  }
+  const movies = await movieService.getFilteredMovies(
+    title,
+    yearOfRelease,
+    genres
+  );
 
-  roundAverageRating(movies);
   if (!title && !yearOfRelease && !genres) {
     return res.status(400).send({ error: "Invalid or no criteria given" });
   } else if (movies.length === 0) {
@@ -30,3 +17,5 @@ exports.getMovies = async (req, res) => {
     return res.status(200).send(movies);
   }
 };
+
+module.exports = { getMovies };
