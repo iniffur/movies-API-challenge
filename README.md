@@ -1,6 +1,6 @@
 # Movies API Tech Test
 
-This is a small project devloping a RESTful Movie's API, designed to return user, movie, and rating information.
+This is a RESTful API that provides information about movies, users, and ratings. It is built using Node.js, Express, and MongoDB. The API is designed to be modular and scalable, with separate schemas for movies, users, and ratings.
 
 ## Tech Stack
 <div align="left">
@@ -22,12 +22,13 @@ I opted to use a NoSQL database as opposed to SQL mostly for simplicity and flex
 
 ## Approach
 
-- I started with modelling my schemas and hosting my database on MongoDB Atlas
-- After the database was connected, I seeded it with a reasonable amount of data to call the APIs
-- Following this, I set up routes files to further help plan the structure of the codebase
-- One-by-one, I implemented the API logic and coded in the varied responses - testing with Postman to see if I was getting the required results. In this stage, I decided to separate out the business logic into individual service files, as to keep the controller files to their purpose only
-- I then went about refactoring, breaking down larger methods and making the code more readable and scalable
-- Once satisfied with this stage, I began to write unit tests in Jest 
+- **Schema Modeling**: I started with modelling my schemas and hosting my database on MongoDB Atlas allowing me to easily connect to the database and manage it from a web interface
+- **Seeding**: I populated the database with sample data to test the API endpoints. This involved creating JavaScript files that contained JSON data and using Mongoose to insert it into the database
+- **Route Setup**: I then created route files for each endpoint of the API, using Express to handle HTTP requests and responses. This helped me to plan the structure of the API and keep the code organised.
+- **API Implementation**: One-by-one I wrote the business logic for each API endpoint, using Mongoose to interact with the database, and Postman to test each endpoint and make sure it returned the expected data.
+- **Refactoring**: Once I was happy with the implementation, I went back over the code to make it more readable and scalable, breaking down larger methods into smaller ones and removing duplicated code. I also separated the business logic into separate service files to keep the controllers focused splely on handling HTTP requests and responses.
+- **Testing** I used Jest to write unit tests for each endpoint of the API. This helped me to catch bugs and ensure the API was working as expected.
+
 
 ## Demo
 
@@ -37,8 +38,8 @@ https://user-images.githubusercontent.com/34510364/219252060-f16cff92-6698-4a52-
 
 ## Future Improvements
 
-- More rigorous testing with ideally integration tests. When running tests on individual files they pass with no errors, however sometimes upon running `npm test`, only certain tests would pass, I believe due to the database not dropping between tests, possibly because the database is cloud hosted. Whilst I implemented a test database so the original database would not be affected, I would like to resolve this issue
-- Implement middleware - would help to handle particular errors and deliver responses
+- More rigorous testing with ideally integration tests. When running tests on individual files they pass with no errors, however sometimes upon running `npm test`, only certain tests would pass, I believe due to the database not dropping between tests, possibly because the database is cloud hosted. Whilst I implemented a test database so the original database would not be affected, I would like to resolve this issue. Additionally there may be issues that only show up when the entire API is running. Integration tests would help to catch these issues.
+- Implementing middleware would allow for better error handling and response formatting.
 - More fleshed out Schemas
 - Additional responses
 - Continue forward with a more Test-Driven-Development approach
