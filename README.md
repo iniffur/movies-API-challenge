@@ -26,7 +26,7 @@ I opted to use a NoSQL database as opposed to SQL mostly for simplicity and flex
 - **Seeding**: I populated the database with sample data to test the API endpoints. This involved creating JavaScript files that contained JSON data and using Mongoose to insert it into the database
 - **Route Setup**: I then created route files for each endpoint of the API, using Express to handle HTTP requests and responses. This helped me to plan the structure of the API and keep the code organised.
 - **API Implementation**: One-by-one I wrote the business logic for each API endpoint, using Mongoose to interact with the database, and Postman to test each endpoint and make sure it returned the expected data.
-- **Refactoring**: Once I was happy with the implementation, I went back over the code to make it more readable and scalable, breaking down larger methods into smaller ones and removing duplicated code. I also separated the business logic into separate service files to keep the controllers focused splely on handling HTTP requests and responses.
+- **Refactoring**: Once I was happy with the implementation, I went back over the code to make it more readable and scalable, breaking down larger methods into smaller ones and removing duplicated code. I also separated the business logic into separate service files to keep the controllers focused solely on handling HTTP requests and responses.
 - **Testing** I used Jest to write unit tests for each endpoint of the API. This helped me to catch bugs and ensure the API was working as expected.
 
 
@@ -38,7 +38,7 @@ https://user-images.githubusercontent.com/34510364/219252060-f16cff92-6698-4a52-
 
 ## Future Improvements
 
-- More rigorous testing with ideally integration tests. When running tests on individual files they pass with no errors, however sometimes upon running `npm test`, only certain tests would pass, I believe due to the database not dropping between tests, possibly because the database is cloud hosted. Whilst I implemented a test database so the original database would not be affected, I would like to resolve this issue. Additionally there may be issues that only show up when the entire API is running. Integration tests would help to catch these issues.
+- More rigorous testing with ideally integration tests. When running tests on individual files they pass with no errors, however sometimes upon running `npm test`, only certain tests would pass, I believe due to the database not dropping between tests, possibly because the database is cloud hosted. Whilst I implemented a test database so the original database would not be affected, I would like to resolve this issue. Additionally, there may be issues that only show up when the entire API is running. Integration tests would help to catch these issues.
 - Implementing middleware would allow for better error handling and response formatting.
 - More fleshed out Schemas
 - Additional responses
