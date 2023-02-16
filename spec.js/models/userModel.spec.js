@@ -1,11 +1,12 @@
 const User = require("../../models/user");
 const mongoose = require("mongoose");
-const connectToDatabase = require("../../databaseConnection");
+const { connectToDatabase } = require("../../databaseConnection");
 
 describe("User model", () => {
   beforeAll(async () => {
     connectToDatabase();
-    await User.remove({});
+    await User.deleteMany({});
+    setTimeout(() => {}, 500);
   });
 
   afterAll(async () => {

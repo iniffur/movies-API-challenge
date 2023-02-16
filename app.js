@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const movieRoutes = require("./routes/movies");
 const ratingRoutes = require("./routes/ratings");
-const connectToDatabase = require("./databaseConnection");
+const { connectToDatabase } = require("./databaseConnection");
 
 connectToDatabase();
 

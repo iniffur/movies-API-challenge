@@ -1,11 +1,12 @@
 const Movie = require("../../models/movie");
 const mongoose = require("mongoose");
-const connectToDatabase = require("../../databaseConnection");
+const { connectToDatabase } = require("../../databaseConnection");
 
 describe("Movie model", () => {
-  beforeAll(async () => {
-    connectToDatabase();
+  beforeEach(async () => {
+    await connectToDatabase();
     await Movie.deleteMany({});
+    setTimeout(() => {}, 500);
   });
 
   afterAll(async () => {

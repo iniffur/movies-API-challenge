@@ -1,10 +1,11 @@
 const Rating = require("../../models/rating");
 const mongoose = require("mongoose");
-const connectToDatabase = require("../../databaseConnection");
+const { connectToDatabase } = require("../../databaseConnection");
 
 describe("Rating model", () => {
   beforeAll(async () => {
-    connectToDatabase();
+    await connectToDatabase();
+    setTimeout(() => {}, 500);
   });
 
   afterAll(async () => {

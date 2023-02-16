@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const User = require("./models/user");
 const Movie = require("./models/movie");
 const Rating = require("./models/rating");
-const connectToDatabase = require("./databaseConnection");
+const { connectToDatabase } = require("./databaseConnection");
 
 connectToDatabase();
 
